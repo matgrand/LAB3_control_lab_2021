@@ -46,6 +46,7 @@ K_ih = [K_ss_e(1)]
 step_start_time = 1;
 step_height = 50; %deg
 enable_integral_action = 1;
+use_simple_observer = 1; %activate simple observer
 
 simulink_system = "model2_3_SS";
 open_system(simulink_system);

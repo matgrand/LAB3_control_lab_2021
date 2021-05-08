@@ -24,6 +24,7 @@ K_ih = 0; %no integral action (but needed for the model)
 
 step_start_time = 1;
 enable_integral_action = 0; %disable integral action
+use_simple_observer = 1; %activate simple observer
 
 step_height = 50; %deg
 

@@ -39,6 +39,7 @@ K_ih = 0; %needed for the model (no integral action here)
 
 %simulink model
 step_start_time = 1;
+use_simple_observer = 1; %activate simple observer
 simulink_system = "model2_3_SS";
 open_system(simulink_system);
 
