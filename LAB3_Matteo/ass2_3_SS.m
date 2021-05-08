@@ -27,7 +27,7 @@ enable_integral_action = 0; %disable integral action
 
 step_height = 50; %deg
 
-simulink_system = "ass2_3_SS";
+simulink_system = "model2_3_SS";
 open_system(simulink_system);
 sim(simulink_system);
 
@@ -42,7 +42,7 @@ Be = [0; B];
 
 p5 = -wn;
 
-poles = 3*[p1 p2 p3 p4 p5];
+poles = 2*[p1 p2 p3 p4 p5];
 
 Ke = acker(Ae, Be, poles);
 K_ih = Ke(1)

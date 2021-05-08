@@ -31,7 +31,7 @@ wgc_mult = 10;
 step_height = 50; %deg
 enable_anti_windup = 0;
 
-simulink_system = "ass2_2_PID";
+simulink_system = "model2_2_PID";
 open_system(simulink_system);
 
 sim(simulink_system);

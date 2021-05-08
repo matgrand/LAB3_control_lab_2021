@@ -47,7 +47,7 @@ step_start_time = 1;
 step_height = 50; %deg
 enable_integral_action = 1;
 
-simulink_system = "ass2_3_SS";
+simulink_system = "model2_3_SS";
 open_system(simulink_system);
  
 %sim(simulink_system);
