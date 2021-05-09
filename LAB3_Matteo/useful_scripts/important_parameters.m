@@ -36,3 +36,10 @@ Req = Ra + Rs;
 Jm = mot.J;
 N = gbox.N;
 
+Bb_est = Bb; %%%%%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
+k_est = k;   %%%%%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
+
+k = k_est;
+Bb = Bb_est;
+
+

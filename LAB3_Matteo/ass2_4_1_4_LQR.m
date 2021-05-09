@@ -1,11 +1,16 @@
 %ass 2.4 
 %STATE SPACE CONTROL WITH LQR METHODS
 
-clear all;
-close all;
+if exist('we_are_in_a_simulation','var') == 1
+else
+    disp("can't find we_are_in_a_simulation... assuming we_are_in_a_simulation = 1")
+    we_are_in_a_simulation = 1;
+end
 
 ts5 = 0.85; %settling time 
 Mp = 0.30; %overshoot 
+par.ts5 = ts5;
+par.Mp = Mp;
 
 state_space_design_LQR;
 
@@ -14,6 +19,7 @@ sysGp = ss(-A, -B, C, D); %inverse state space
 
 %root locus analysis
 r = 1/3850; %tuned value
+par.r = r;
 rlocus(sysG*sysGp); %plot root locus
 hold on
 rl_poles = rlocus(sysG*sysGp, 1/r);
@@ -35,22 +41,24 @@ hold off
 %controller
 K_ss = lqry(sysG,1,r)
 K_ih = 0; %needed for the model (no integral action here)
-
+par.K_ss = K_ss;
 
 %simulink model
-step_start_time = 1;
+step_start_time = 2;
 use_simple_observer = 1; %activate simple observer
-simulink_system = "model2_3_SS";
-open_system(simulink_system);
+if (we_are_in_a_simulation) 
+    simulink_system = "model2_3_1_8_SS";
+else
+    simulink_system = "exp3_5_STATE_SPACE_LQR";
+end
 
 %2 validation
 %NOMINAL LQR
 enable_integral_action = 0; %disable integral action
 step_height = 50; %deg
 
-sim(simulink_system);
-plot_scope(thh_scope, "Nominal LQR Regulator Root Locus");
-
+run_simulation;
+plot_and_save(ans, "Nominal_LQR_Regulator_Root_Locus",par);
 
 % 3 more general cost function
 step_height = 50; %deg
@@ -65,16 +73,23 @@ dev_u = 10; %input maximum variation (to avoid saturation)
 Q = diag([1/dev_thh^2 1/dev_thd^2 0 0]);
 R = rho/dev_u^2;
 
+par.rho = rho;
+par.dev_thh = dev_thh;
+par.dev_thd = dev_thd;
+par.dev_u = dev_u;
+par.Q = Q;
+par.R = R;
+
 K_ss = lqr(sysG, Q, R);
+par.K_ss = K_ss;
 
 %4 validation 
 %NOMINAL LQR 
 enable_integral_action = 0; %disable integral action
 step_height = 50; %deg
 
-sim(simulink_system);
-plot_scope(thh_scope, "Nominal LQR Regulator Custom Design 1");
-
+run_simulation;
+plot_and_save(ans, "Nominal_LQR_Regulator_Custom_Design_1",par);
 
 
 
