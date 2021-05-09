@@ -5,7 +5,8 @@ close all;
 
 
 we_are_in_a_simulation = 1; %0 = WE ARE NOT IN A SIMULATION
-enjoyment_time = 2;
+stop_time = 8;
+enjoyment_time = 5;
 
 
 %3.3  PID

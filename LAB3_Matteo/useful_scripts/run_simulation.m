@@ -30,7 +30,7 @@ else
     set_param(simulink_system,'SimulationCommand','start');   
     save_system(simulink_system);
     
-    pause(1);
+    %pause(1);
     
     %w8 for simulation to finish
     while (not(strcmp('stopped',get_param(simulink_system,'SimulationStatus'))))
