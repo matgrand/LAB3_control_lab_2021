@@ -1,6 +1,9 @@
 %ass 2.3 
 %position state space 
 
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
+
 if exist('we_are_in_a_simulation','var') == 1
 else
     disp("can't find we_are_in_a_simulation... assuming we_are_in_a_simulation = 1")
@@ -44,13 +47,18 @@ end
 
 run_simulation;
 
-plot_and_save(ans,"Nominal_SS_Regulator",par);
+plot_and_save(tmp,"Nominal_SS_Regulator",par);
 
 
 %ROBUST INTEGRAL ACTION
 
 Ae = [0 C; zeros(4,1) A];
 Be = [0; B];
+
+p1 = -wn*exp(+1i*phi/8);
+p2 = -wn*exp(-1i*phi/8);
+p3 = -wn*exp(+1i*phi/4);
+p4 = -wn*exp(-1i*phi/4);
 
 p5 = -wn;
 
@@ -67,7 +75,7 @@ enable_integral_action = 1;
 
 run_simulation;
 
-plot_and_save(ans,"Integral_action_SS_Regulator",par);
+plot_and_save(tmp,"Integral_action_SS_Regulator",par);
 
 
 

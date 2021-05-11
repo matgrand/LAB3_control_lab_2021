@@ -1,5 +1,8 @@
 %ass 2.4 
 %STATE SPACE CONTROL WITH LQR METHODS
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
+
 
 if exist('we_are_in_a_simulation','var') == 1
 else
@@ -58,7 +61,7 @@ enable_integral_action = 0; %disable integral action
 step_height = 50; %deg
 
 run_simulation;
-plot_and_save(ans, "Nominal_LQR_Regulator_Root_Locus",par);
+plot_and_save(tmp, "Nominal_LQR_Regulator_Root_Locus",par);
 
 % 3 more general cost function
 step_height = 50; %deg
@@ -89,7 +92,7 @@ enable_integral_action = 0; %disable integral action
 step_height = 50; %deg
 
 run_simulation;
-plot_and_save(ans, "Nominal_LQR_Regulator_Custom_Design_1",par);
+plot_and_save(tmp, "Nominal_LQR_Regulator_Custom_Design_1",par);
 
 
 

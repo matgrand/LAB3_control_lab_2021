@@ -36,8 +36,8 @@ Req = Ra + Rs;
 Jm = mot.J;
 N = gbox.N;
 
-Bb_est = Bb; %%%%%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
-k_est = k;   %%%%%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
+Bb_est = 0.0043; %%%%%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
+k_est = 0.8490;   %%%%%%%%%%%%%%%%%%% CHANGE IT WITH THE ESTIMATED ONE
 
 k = k_est;
 Bb = Bb_est;

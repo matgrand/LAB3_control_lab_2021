@@ -1,5 +1,9 @@
 %ass 2.4 (5) Optional
 
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
+
+
 if exist('we_are_in_a_simulation','var') == 1
 else
     disp("can't find we_are_in_a_simulation... assuming we_are_in_a_simulation = 1")
@@ -23,7 +27,7 @@ sysGep = ss(-Ae, -Be, Ce, D); %inverse state space
 
 %root locus analysis
 
-r = 1/500; %can be tuned better
+r = 1/1.27e4; %can be tuned better
 par.r = r;
 
 rlocus(sysGe*sysGep); %plot root locus
@@ -63,7 +67,7 @@ enable_integral_action = 1;
 use_simple_observer = 1; %activate simple observer
 
 run_simulation;
-plot_and_save(ans, "Robust_LQR_regulator_integral_action",par);
+plot_and_save(tmp, "Robust_LQR_regulator_integral_action",par);
 
 % 7 optional
 
@@ -103,7 +107,7 @@ enable_integral_action = 1; %enable integral action
 step_height = 50; %deg
 
 run_simulation;
-plot_and_save(ans, "Integral_Action_LQR_Regulator_Custom_Design",par);
+plot_and_save(tmp, "Integral_Action_LQR_Regulator_Custom_Design",par);
 
 
 

@@ -26,10 +26,10 @@ else
     open_system(simulink_system);
     set_param(simulink_system,'SimulationMode','external')
     set_param(simulink_system,'StopTime',str_stop_time);
+    save_system(simulink_system);
     set_param(simulink_system,'SimulationCommand','connect');
     set_param(simulink_system,'SimulationCommand','start');   
-    save_system(simulink_system);
-    
+   
     %pause(1);
     
     %w8 for simulation to finish
@@ -38,5 +38,9 @@ else
     end
     
     close_system(simulink_system);
+    
+    tmp.thh_scope = thh_scope1;
+    tmp.thd_scope = thd_scope1;
+    tmp.i_scope = i_scope1;
     
 end

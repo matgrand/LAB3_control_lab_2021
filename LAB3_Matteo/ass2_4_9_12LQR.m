@@ -1,5 +1,8 @@
 %ass 2.4 (9)
 
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
+
 % FREQUENCY DEPENDENT WEIGHT
 
 if exist('we_are_in_a_simulation','var') == 1
@@ -25,10 +28,11 @@ poles_G = pole(sysG);
 w0 = imag(eig_A(2)); 
 
 %PARAMETERS %%%%%%%%%%%%%%%%%%%%%%
+%freq shaped no integral
 dev_thh = 5*pi/180;
 dev_u = 10;
-q22 = 300; % 0.01 1 100
-r = 1.2/dev_u^2; 
+q22 = 1; % 0.01 1 100
+r = 1/dev_u^2; 
 
 par.dev_thh = dev_thh;
 par.dev_u = dev_u;
@@ -88,7 +92,7 @@ step_height = 50; %deg
 enable_integral_action = 0; %no integral action
 
 run_simulation;
-plot_and_save(ans, "Frequency_Dependent_LQR_regulator",par);
+plot_and_save(tmp, "Frequency_Dependent_LQR_regulator",par);
 
 %evaluate how much the resonant mode is attenuated
 %
@@ -102,10 +106,11 @@ Be = [0; Ba];
 Ce = [0 Ca];
 
 %PARAMETERS %%%%%%%%%%%%%%%%%%%%%%
+%freq shaped in
 dev_thh = 5*pi/180;
 dev_u = 10;
-q22 = 300; % 0.01 1 100
-r = 1.2/dev_u^2;
+q22 = 1; % 0.01 1 100
+r = 1/dev_u^2;
 qi = 10;
 
 par.dev_thh = dev_thh;
@@ -131,7 +136,7 @@ par.K_ih = K_ih;
 enable_integral_action = 1; %no integral action
 
 run_simulation;
-plot_and_save(ans, "Frequency_Dependent_LQR_regulator_integral_action",par);
+plot_and_save(tmp, "Frequency_Dependent_LQR_regulator_integral_action",par);
 
 %evaluate how much the resonant mode is attenuated
 %
