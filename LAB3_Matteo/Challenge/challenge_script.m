@@ -7,6 +7,7 @@ clear all;
 
 we_are_in_a_simulation = 1; %0 = WE ARE NOT IN A SIMULATION
 stop_time = 2;
+step_start_time = 1;
 step_height = 50; %deg
 
 if exist('we_are_in_a_simulation','var') == 1
@@ -31,20 +32,34 @@ Ce = [1 0 0 0 0];
 
 sysGe = ss(Ae,Be,Ce,D); %state space
 
+%% TRICK
+%0
+enable_trick = 0;
+
+t0 = step_start_time;
+t1 = t0 + 0.125;
+t2 = t1 + 0;
+
 %% Custom Design LQR
 % 7 optional
 
 %LQR parameters
-rho = 1; %balance between input and state (rho small -> input very costly)
-dev_thh = 1   *0.3*step_height*(pi/180); %maximum variation of the hub
-dev_thd = 1     *(pi/36); %maximum variation of the angle of the beam wrt the hub
 
+%1
+rho = 1; % %balance between input and state (rho big -> input very costly)
+%1
+dev_thh = 1  *0.3*step_height*(pi/180); %maximum variation of the hub
+%20
+dev_thd = 30    *(pi/36); %maximum variation of the angle of the beam wrt the hub
+%10
 dev_u = 10; %input maximum variation (to avoid saturation)
 
 q11_values = [1e-2 1e-1 1 1e1 1e2]; %try this values
-q11 = 0.1;
+%10 300 
+q11 = 10;
 
-Kw = 5;
+%5.8 19
+Kw = 5.8;
 
 
 %using Bryson's rule
@@ -76,7 +91,6 @@ else
     simulink_system = "exp3_5_STATE_SPACE_LQR";
 end
 
-step_start_time = 1;
 use_simple_observer = 1; %activate simple observer
 
 %8 validation 
