@@ -19,6 +19,7 @@ str_stop_time = string(stop_time);
 
 %simulation
 if (we_are_in_a_simulation == 1) 
+    %sim(simulink_system, 'StopTime', str_stop_time);
     sim(simulink_system);
     
 %experiment
@@ -39,8 +40,8 @@ else
     
     close_system(simulink_system);
     
-    tmp.thh_scope = thh_scope1;
-    tmp.thd_scope = thd_scope1;
-    tmp.i_scope = i_scope1;
-    
 end
+
+tmp.thh_scope = thh_scope1;
+tmp.thd_scope = thd_scope1;
+tmp.i_scope = i_scope1;

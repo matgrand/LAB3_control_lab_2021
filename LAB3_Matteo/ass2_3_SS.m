@@ -1,7 +1,7 @@
 %ass 2.3 
 %position state space 
 
-we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+%we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
 stop_time = 10;
 
 if exist('we_are_in_a_simulation','var') == 1
