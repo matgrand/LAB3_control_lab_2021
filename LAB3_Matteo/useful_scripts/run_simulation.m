@@ -19,9 +19,11 @@ str_stop_time = string(stop_time);
 
 %simulation
 if (we_are_in_a_simulation == 1) 
+    open_system(simulink_system);
     set_param(simulink_system,'StopTime',str_stop_time);
     save_system(simulink_system);
     sim(simulink_system);
+    close_system(simulink_system);
     
 %experiment
 else
