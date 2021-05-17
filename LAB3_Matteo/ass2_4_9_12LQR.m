@@ -133,7 +133,7 @@ par.K_ss = K_ss;
 par.K_ih = K_ih;
 
 %12
-enable_integral_action = 1; %no integral action
+enable_integral_action = 1; 
 
 run_simulation;
 plot_and_save(tmp, "Frequency_Dependent_LQR_regulator_integral_action",par);
