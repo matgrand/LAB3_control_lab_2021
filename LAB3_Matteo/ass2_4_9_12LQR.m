@@ -29,38 +29,53 @@ w0 = imag(eig_A(2));
 
 %PARAMETERS %%%%%%%%%%%%%%%%%%%%%%
 %freq shaped no integral
-dev_thh = 5*pi/180;
-dev_u = 10;
-q22 = 1; % 0.01 1 100
-r = 1/dev_u^2; 
+dev_thh =5/180*pi;        %deviation on the thh component
+dev_thd = 1*pi/36;     
+dev_u = sqrt(10);         %input deviation
+      
+r = 1/dev_u^2;              %input weight
+dq1 = 1/dev_thh^2;          %thh weight
+dq2 = 1/dev_thd^2;          %thd weight
+dq3 = 0;                    %wh hub angular velocity
+dq4 = 0;                    %wd beam angular velocity
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+par.ts5 = ts5;
+par.Mp = Mp;
 par.dev_thh = dev_thh;
 par.dev_u = dev_u;
-par.q22 = q22;
 par.r = r;
 
 %realization of Htq
 A1q = [0 1; -w0^2 0];
 B1q = [0;1];
-C1q = [sqrt(q22)*w0^2 0];
+C1q = [sqrt(dq2)*w0^2 0];
 D1q = 0;
 
 %realization of Hq
-Aq = A1q;
+Aq = A1q; %ok
 Bq = [zeros(2,1) B1q zeros(2,2)];
 Cq = [zeros(1,2); C1q; zeros(2,2)];
-Dq = diag([1/dev_thh D1q 0 0]); %on the assignment is diag([1/dev_thh 0 0 0]);
+Dq = diag([1/dev_thh, D1q, sqrt(dq3), sqrt(dq4)]); %on the assignment is diag([1/dev_thh 0 0 0]);
 
 %augmented state sysA (x_a = [x; x_q])
-Aa = [A zeros(4,2); Bq Aq];
+Aa = [A zeros(4,2); Bq Aq]; %ok
 Ba = [B;0;0];
 Ca = [C zeros(1,2)];
 Da = 0;
 
 %cost matrices
-Qa = [Dq.'*Dq Dq.'*Cq; Cq.'*Dq Cq.'*Cq];
+Qa = [Dq'*Dq,Dq'*Cq;...
+      Cq'*Dq,Cq'*Cq];
 Na = 0;
 Ra = r;
+
+%Nx Nu
+F = [Aa Ba; Ca Da];
+Nxu = F\[0; 0; 0; 0; 0; 0; 1];
+Nx = [Nxu(1); Nxu(2); Nxu(3); Nxu(4); Nxu(5); Nxu(6)];
+Nu = Nxu(7);
 
 par.Qa = Qa;
 par.Na = Na;
@@ -101,25 +116,34 @@ plot_and_save(tmp, "Frequency_Dependent_LQR_regulator",par);
 
 %11 iNTEGRAL ACTION
 
+%PARAMETERS %%%%%%%%%%%%%%%%%%%%%%
+%freq shaped in
+dev_thh = 1*5/180*pi;          %deviation on the thh component
+dev_thd = 1*pi/36;     
+dev_u = sqrt(10);                         %input deviation
+      
+r = 1/dev_u^2;            %input weight
+qi = 0.1;                 %integral weight
+dq1 = 1/dev_thh^2;        %thh weight
+dq2 = 1/dev_thd^2;        %thd weight
+dq3 = 0;                  %wh hub angular velocity
+dq4 = 0;                  %wd beam angular velocity
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+par.ts5 = ts5;
+par.Mp = Mp;
+par.dev_thh = dev_thh;
+par.dev_u = dev_u;
+par.r = r;
+par.qi = qi;
+
+
 Ae = [0 Ca; zeros(6,1) Aa];
 Be = [0; Ba];
 Ce = [0 Ca];
 
-%PARAMETERS %%%%%%%%%%%%%%%%%%%%%%
-%freq shaped in
-dev_thh = 5*pi/180;
-dev_u = 10;
-q22 = 1; % 0.01 1 100
-r = 1/dev_u^2;
-qi = 10;
-
-par.dev_thh = dev_thh;
-par.dev_u = dev_u;
-par.q22 = q22;
-par.r = r;
-par.qi = qi;
-
-Qe = [qi zeros(1,6); zeros(6,1) Qa];
+Qe = blkdiag(qi,Qa);
 Re = Ra;
 
 par.Qe = Qe;
