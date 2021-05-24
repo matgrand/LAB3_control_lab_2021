@@ -2,7 +2,7 @@
 %position pid for the hub position (collocated control)
 
 %we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
-stop_time = 10;
+%stop_time = 10;
 
 if exist('we_are_in_a_simulation','var') == 1
 else

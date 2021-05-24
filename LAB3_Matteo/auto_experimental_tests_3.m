@@ -4,8 +4,8 @@ clear all;
 close all;
 
 
-we_are_in_a_simulation = 1; %0 = WE ARE NOT IN A SIMULATION
-stop_time = 8;
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 12;
 enjoyment_time = 5;
 
 
