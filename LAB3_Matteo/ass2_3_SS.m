@@ -1,8 +1,8 @@
 %ass 2.3 
 %position state space 
 
-%we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
-%stop_time = 10;
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
 
 if exist('we_are_in_a_simulation','var') == 1
 else
@@ -55,8 +55,8 @@ plot_and_save(tmp,"Nominal_SS_Regulator",par);
 Ae = [0 C; zeros(4,1) A];
 Be = [0; B];
 
-p1 = -wn*exp(+1i*phi/8);
-p2 = -wn*exp(-1i*phi/8);
+p1 = -wn*exp(+1i*phi/2);
+p2 = -wn*exp(-1i*phi/2);
 p3 = -wn*exp(+1i*phi/4);
 p4 = -wn*exp(-1i*phi/4);
 

@@ -1,7 +1,7 @@
 %ass 2.4 (5) Optional
 
-%we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
-%stop_time = 10;
+we_are_in_a_simulation = 0; %0 = WE ARE NOT IN A SIMULATION
+stop_time = 10;
 
 
 if exist('we_are_in_a_simulation','var') == 1
@@ -27,13 +27,15 @@ sysGep = ss(-Ae, -Be, Ce, D); %inverse state space
 
 %root locus analysis
 
-r = 1/1.27e4; %can be tuned better
+r = 1/4e3; %can be tuned better
 par.r = r;
 
 rlocus(sysGe*sysGep); %plot root locus
 hold on
 rl_poles = rlocus(sysGe*sysGep, 1/r);
 plot(real(rl_poles), imag(rl_poles), 'rx', 'MarkerSize',10);
+
+
 %points to plot lines
 z0 = 0 +0j;
 z1 = -70 +1j*tan(phi)*70;  %its 2*phi not phi %its tan(phi)

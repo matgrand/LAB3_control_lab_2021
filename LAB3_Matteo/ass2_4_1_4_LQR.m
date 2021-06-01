@@ -28,6 +28,7 @@ hold on
 rl_poles = rlocus(sysG*sysGp, 1/r);
 plot(real(rl_poles), imag(rl_poles), 'rx', 'MarkerSize',10);
 %points to plot lines
+figure;
 z0 = 0 +0j;
 z1 = -70 +1j*tan(phi)*70;  %its 2*phi not phi %its tan(phi)
 z2 = -70 -1j*tan(phi)*70;
